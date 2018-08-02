@@ -1,14 +1,13 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var boodyParser = require('body-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const boodyParser = require('body-parser');
+const logger = require('morgan');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const mongoose = require('mongoose');
+const app = express();
 
 
 app.use(logger('dev'));
@@ -37,4 +36,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+mongoose.connect('mongodb://localhost:27017/courses').then(() => { 
+	console.log("Database connection OK");
+   },
+  err => {
+  	console.log('unable to connect to Database');
+  	console.log(err);
+  	process.exit(1);
+  }
+);
 module.exports = app;
