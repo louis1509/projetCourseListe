@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Login from '../components/login/Login';
+import LogonContainer from "../components/login/LogonContainer";
+
 
 
 class RoutesApp extends React.Component{
@@ -13,7 +14,7 @@ class RoutesApp extends React.Component{
 			<Router>
 				<div>
 	               <Switch>	                 
-	                  <Route exact path='/Login' component={Login} />
+	                  <Route exact path='/Login' component={LogonContainer} />
 	               </Switch>
 	            </div>
 			</Router>
