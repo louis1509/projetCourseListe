@@ -1,25 +1,37 @@
 'use strict';
 import React, {Component} from 'react';
-import  {Tabs, Tab} from 'react-bootstrap';
+import  {Tabs, Tab, Row, Col} from 'react-bootstrap';
 import Login from "./loginForm/Login";
-class LogonContainer extends React.Component {
+class LogonContainer extends React.Component {        
     constructor(props, context) {
         super(props, context);
+        this.login           ="Connectez- vous";
+        this.registration    ="Inscrivez vous";
      }
         render(){
             return (
-                <Tabs
-                   // activeKey={this.state.key}
-                   // onSelect={this.handleSelect}
-                    id="controlled-tab-example"
-                >
-                    <Tab eventKey={1} title="Tab 1">
-                        <Login/>
-                    </Tab>
-                    <Tab eventKey={2} title="Tab 2">
-                        Tab 2 content
-                    </Tab>
-                </Tabs>
+                <div>        
+                    <Row className="show-grid">
+                        <Col sm={6} smOffset={3}>
+                            <Row>
+                                <Col sm={6} smOffset={4}>
+                                    <h2><strong>Connectez vous</strong></h2>
+                                </Col>
+                             </Row>
+                             <Tabs
+                               // activeKey={this.state.key}
+                               // onSelect={this.handleSelect}
+                                id="controlled-tab-example">
+                                <Tab eventKey={1} title={this.login}>
+                                    <Login/>
+                                </Tab>
+                                <Tab eventKey={2} title={this.registration}>
+                                    Tab 2 content
+                                </Tab>
+                            </Tabs>
+                        </Col>
+                      </Row>
+                  </div>
             );
         }
 
