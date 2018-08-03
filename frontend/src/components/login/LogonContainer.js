@@ -2,6 +2,8 @@
 import React, {Component} from 'react';
 import  {Tabs, Tab, Row, Col} from 'react-bootstrap';
 import Login from "./loginForm/Login";
+import Registration from "./registrationForm/Registration";
+
 class LogonContainer extends React.Component {        
     constructor(props, context) {
         super(props, context);
@@ -26,7 +28,7 @@ class LogonContainer extends React.Component {
                                     <Login/>
                                 </Tab>
                                 <Tab eventKey={2} title={this.registration}>
-                                    Tab 2 content
+                                    <Registration/>
                                 </Tab>
                             </Tabs>
                         </Col>
