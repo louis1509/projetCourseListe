@@ -25,9 +25,11 @@ class LogonContainer extends React.Component {
                                // onSelect={this.handleSelect}
                                 id="controlled-tab-example">
                                 <Tab eventKey={1} title={this.login}>
+                                    <br/>
                                     <Login/>
                                 </Tab>
                                 <Tab eventKey={2} title={this.registration}>
+                                     <br/>
                                     <Registration/>
                                 </Tab>
                             </Tabs>

@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
 import './Login.css';
-import { Alert ,Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button} from 'react-bootstrap';
+import { Alert ,Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Row, Col} from 'react-bootstrap';
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -37,43 +37,22 @@ class Login extends React.Component {
   render() {
     return (
       <form className="login" onSubmit={this.handleSubmit}>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}>
+        <FormGroup controlId="formBasicText">
 
-          <ControlLabel>Username with validation</ControlLabel>
-          <FormControl
-            type="text"
-            
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length.</HelpBlock>   
+          <ControlLabel>Nom d'utilisateur</ControlLabel>
+          <FormControl type="text" placeholder="Enter text" onChange={this.handleChange}/>
         </FormGroup>
 
-         <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}>
-
-          <ControlLabel>password with validation</ControlLabel>
-          <FormControl
-            type="password"
-            
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length.</HelpBlock>   
+         <FormGroup controlId="formBasicText">
+          <ControlLabel>Mot de passe</ControlLabel>
+          <FormControl  type="password"  placeholder="Enter text"/> 
         </FormGroup>
-
-        <Button type="submit">Submit</Button>
-
-          <Alert bsStyle="warning">
-            <strong>Holy guacamole!</strong> Best check yo self, you're not looking too  good.
-        </Alert>
-
-
+        <br/>
+        <Row>
+          <Col sm={5} xs={12} smOffset={4} >
+            <Button  bsStyle="success" type="submit">Connexion</Button>
+          </Col>
+        </Row>
       </form>
     );
   }

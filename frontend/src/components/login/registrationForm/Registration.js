@@ -1,12 +1,15 @@
 'use strict'; 
 import React, {Component} from 'react';
-import  {ControlLabel, FormControl, HelpBlock, FormGroup} from 'react-bootstrap';
+import  {ControlLabel, FormControl, HelpBlock, FormGroup, Button, Row, Col} from 'react-bootstrap';
 
 class Registration extends React.Component {
 	constructor(props, context){
 		super(props, context)
 
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.state = {
+				value : 'louis'
+		};
 	}
 
 	handleSubmit(e){
@@ -17,22 +20,56 @@ class Registration extends React.Component {
 	render(){
 		return(
 			<form className="registration" onSubmit={this.handleSubmit}>
-				 <FormGroup
-	          controlId="formBasicText"
+			 <FormGroup controlId="formBasicText"
 	         //validationState={this.getValidationState()}
-	        >
-	          <ControlLabel>Working example with validation</ControlLabel>
-	          <FormControl
-	            type="text"
+	         >
+	          <ControlLabel>Nom d'utilisateur</ControlLabel>
+	          <FormControl type="text"
 	            //value={this.state.value}
 	            //placeholder="Enter text"
 	            //onChange={this.handleChange}
 	          />
 	          <FormControl.Feedback />
-	          <HelpBlock>Validation is based on string length.</HelpBlock>
 	        </FormGroup>
 
-			</form>
+	        <FormGroup controlId="firstPassword"
+	         //validationState={this.getValidationState()}
+	        >
+	          <ControlLabel>Mot de passe</ControlLabel>
+	          <FormControl type="passwort"
+	            //value={this.state.value}
+	            //placeholder="Enter text"
+	            //onChange={this.handleChange}
+	          />
+	          <FormControl.Feedback />
+	        </FormGroup>
+
+	        <FormGroup controlId="confirmPassword"
+	         //validationState={this.getValidationState()}
+	        >
+	          <ControlLabel>Confirmer le mot de passe</ControlLabel>
+	          <FormControl type="passwort"
+	            //value={this.state.value}
+	            //placeholder="Enter text"
+	            //onChange={this.handleChange}
+	          />
+	          <FormControl.Feedback />
+	        </FormGroup>
+
+		    <FormGroup controlId="formControlsSelect">
+		      <ControlLabel>Select</ControlLabel>
+		      <FormControl componentClass="select" placeholder="select">
+		        <option value="select">select</option>
+		        <option value="other">...</option>
+		      </FormControl>
+		    </FormGroup>
+			<br/>
+			<Row>
+          		<Col sm={5} smOffset={4}>
+            		<Button bsStyle="primary" type="submit">Enregistrer</Button>
+          		</Col>
+        	</Row>
+		</form>
 		);
 	}
 
