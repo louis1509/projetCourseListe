@@ -1,8 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var UserSchema = new mongoose.schema({
+const UserSchema = new mongoose.Schema({
 	login		: String,
 	password 	: String,
 	salt 		: String,
@@ -10,4 +10,4 @@ var UserSchema = new mongoose.schema({
 	groupName 	: String
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema, 'Users');
