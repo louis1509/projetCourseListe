@@ -1,20 +1,41 @@
 'use strict'; 
 import React, {Component} from 'react';
 import  {ControlLabel, FormControl, HelpBlock, FormGroup, Button, Row, Col} from 'react-bootstrap';
+import axios from 'axios';
 
 class Registration extends React.Component {
 	constructor(props, context){
 		super(props, context)
 
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 		this.state = {
-				value : 'louis'
+				username 		: '',
+				password 		: '',
+				confirmPassword : '',
+				groupSelected 	: ''
 		};
 	}
 
 	handleSubmit(e){
-    	alert('A name was submitted: ' + this.state.value);
-    	e.preventDefault();
+		e.preventDefault();
+		alert('data');
+    	axios.post('http://localhost:3000/users/create', {username : "data"})
+    	.then(res=>{
+    		console.log(res);
+    		console.log(res.data);
+    	});
+    	
+ 	 }
+
+ 	 handleChange(event){
+ 	 	const target = event.target;
+ 	 	const value = target.value;
+ 	 	const name = target.name;
+
+ 	 	this.setState({
+ 	 		[name] : value
+ 	 	});
  	 }
 
 	render(){
@@ -24,41 +45,25 @@ class Registration extends React.Component {
 	         //validationState={this.getValidationState()}
 	         >
 	          <ControlLabel>Nom d'utilisateur</ControlLabel>
-	          <FormControl type="text"
-	            //value={this.state.value}
-	            //placeholder="Enter text"
-	            //onChange={this.handleChange}
-	          />
+	          <FormControl type="text" value={this.state.username} placeholder="Enter text" onChange={this.handleChange} name="username"/>
 	          <FormControl.Feedback />
 	        </FormGroup>
 
-	        <FormGroup controlId="firstPassword"
-	         //validationState={this.getValidationState()}
-	        >
+	        <FormGroup controlId="firstPassword">
 	          <ControlLabel>Mot de passe</ControlLabel>
-	          <FormControl type="passwort"
-	            //value={this.state.value}
-	            //placeholder="Enter text"
-	            //onChange={this.handleChange}
-	          />
+	          <FormControl type="password" value={this.state.password} placeholder="Enter text" onChange={this.handleChange} name="password"/>
 	          <FormControl.Feedback />
 	        </FormGroup>
 
-	        <FormGroup controlId="confirmPassword"
-	         //validationState={this.getValidationState()}
-	        >
+	        <FormGroup controlId="confirmPassword">
 	          <ControlLabel>Confirmer le mot de passe</ControlLabel>
-	          <FormControl type="passwort"
-	            //value={this.state.value}
-	            //placeholder="Enter text"
-	            //onChange={this.handleChange}
-	          />
+	          <FormControl type="password" value={this.state.value} placeholder="Enter text" onChange={this.handleChange} name="confirmPassword"/>
 	          <FormControl.Feedback />
 	        </FormGroup>
 
 		    <FormGroup controlId="formControlsSelect">
 		      <ControlLabel>Select</ControlLabel>
-		      <FormControl componentClass="select" placeholder="select">
+		      <FormControl componentClass="select" placeholder="select" onChange={this.handleChange} name="groupSelected">
 		        <option value="select">select</option>
 		        <option value="other">...</option>
 		      </FormControl>
