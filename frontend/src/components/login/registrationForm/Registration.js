@@ -10,17 +10,20 @@ class Registration extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.state = {
-				username 		: '',
+				login	 		: '',
 				password 		: '',
 				confirmPassword : '',
-				groupSelected 	: ''
+				groupName 		: ''
 		};
 	}
 
 	handleSubmit(e){
 		e.preventDefault();
-		alert('data');
-    	axios.post('http://localhost:3000/users/create', {username : "data"})
+		if(this.state.password !== this.state.confirmPassword){
+			return;
+		} 
+		const {login, password, groupName} = this.state;
+    	axios.post('http://localhost:3000/users/create',  {login, password, groupName})
     	.then(res=>{
     		console.log(res);
     		console.log(res.data);
@@ -41,11 +44,11 @@ class Registration extends React.Component {
 	render(){
 		return(
 			<form className="registration" onSubmit={this.handleSubmit}>
-			 <FormGroup controlId="formBasicText"
+			 <FormGroup controlId="usernameREgistration"
 	         //validationState={this.getValidationState()}
 	         >
 	          <ControlLabel>Nom d'utilisateur</ControlLabel>
-	          <FormControl type="text" value={this.state.username} placeholder="Enter text" onChange={this.handleChange} name="username"/>
+	          <FormControl type="text" value={this.state.login} placeholder="Enter text" onChange={this.handleChange} name="login"/>
 	          <FormControl.Feedback />
 	        </FormGroup>
 
@@ -61,9 +64,9 @@ class Registration extends React.Component {
 	          <FormControl.Feedback />
 	        </FormGroup>
 
-		    <FormGroup controlId="formControlsSelect">
+		    <FormGroup controlId="selectGroup">
 		      <ControlLabel>Select</ControlLabel>
-		      <FormControl componentClass="select" placeholder="select" onChange={this.handleChange} name="groupSelected">
+		      <FormControl componentClass="select" placeholder="select" onChange={this.handleChange} name="groupName">
 		        <option value="select">select</option>
 		        <option value="other">...</option>
 		      </FormControl>
