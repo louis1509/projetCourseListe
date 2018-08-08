@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/Users');
+const AuthenticationServices = require('../services/authenticationServices');
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
@@ -26,6 +27,8 @@ router.get('/:login', (req, res, next) =>{
 
 /* CREATE (POST) user */
 router.post('/create', (req, res, next)=>{
+	var salt = AuthenticationServices.generateSalt();
+	console.log('my salt ' + salt);
 	User.create(req.body, (err, user)=>{
 		if(err) return res.status(200).send(err);
 		return res.status(200).send(user);
