@@ -8,6 +8,15 @@ const AuthenticationServices = {
 		console.log('test');
 	},
 
+	retrieveUser(req,res,next){
+		let userToken =req.cookie.token;
+		if(!userToken){
+			req.user = null;
+			return next();:
+		}
+	},
+
+
 	generateSalt(){
 		console.log('generateSalt');
 		 bcrypt.genSalt(10)

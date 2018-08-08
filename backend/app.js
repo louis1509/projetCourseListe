@@ -8,6 +8,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const mongoose = require('mongoose');
 const app = express();
+const authenticationServices = require('./services/authenticationServices');
 var cors = require('cors')
 
 app.use(cors())
@@ -17,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(boodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(authenticationServices.retrieveUser);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
