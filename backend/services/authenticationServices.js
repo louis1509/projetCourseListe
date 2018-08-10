@@ -1,33 +1,51 @@
 'use strict';
 
+//NPM dependencies
 var bcrypt = require('bcrypt');
 var Promise = require('promise');
 
+//Project dependencies
+const User = require('../models/Users'); 
+let firstSalt = '';
 const AuthenticationServices = {
 	test(){
 		console.log('test');
 	},
 
+	createUser(req,res,next){
+		console.log('create user');
+		console.log(req.cookies);	
+		bcrypt.genSalt(10)
+		 .then((salt) =>{
+		 	console.log('the salt : ' + salt + ' was generated');
+			let newUser = {};
+			newUser.login = req.body.login;
+			newUser.password = req.body.password;
+			newUser.salt = salt;
+			newUser.token = {};
+			newUser.groupName = req.body.groupName;
+
+		 	User.create(newUser, (err, user)=>{
+				if(err) return res.status(200).send(err);
+				return res.status(200).send(user);
+			});		
+		})
+		 .catch((err)=>{
+		 	console.log('erreur lors de la génération du sel : ' + err);
+		 });
+		
+	},
+
 	retrieveUser(req,res,next){
-		let userToken =req.cookie.token;
+		let userToken =req.cookies.token;
 		if(!userToken){
 			req.user = null;
-			return next();:
+			return next();
 		}
+		console.log('retrieveUser');
+		return next();
 	},
 
-
-	generateSalt(){
-		console.log('generateSalt');
-		 bcrypt.genSalt(10)
-		 .then((salt) =>{
-		 	console.log('the salt is : ' + salt);
-		 	return salt; 		
-		})
-		 .catch(()=>{
-		 	console.log('erreur lors de la génération du sel');
-		 });
-	},
 
 	generateToken(){
 		console.log('generateToken');

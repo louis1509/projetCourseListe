@@ -27,12 +27,14 @@ router.get('/:login', (req, res, next) =>{
 
 /* CREATE (POST) user */
 router.post('/create', (req, res, next)=>{
-	var salt = AuthenticationServices.generateSalt();
-	console.log('my salt ' + salt);
-	User.create(req.body, (err, user)=>{
-		if(err) return res.status(200).send(err);
-		return res.status(200).send(user);
-	});
+	AuthenticationServices.createUser(req,res,next);
+});
+
+/* LOG (POST) an user */
+router.post('/login', (req, res, next)=>{
+	//get password and login
+	//check by calling a service
+	//if check ok, generate token
 });
 
 /* UPDATE (PUT) users */
