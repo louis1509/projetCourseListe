@@ -37,7 +37,7 @@ class Login extends React.Component {
   render() {
     return (
       <form className="login" onSubmit={this.handleSubmit}>
-        <FormGroup controlId="formBasicText">
+        <FormGroup controlId="usernameLogin">
 
           <ControlLabel>Nom d'utilisateur</ControlLabel>
           <FormControl type="text" placeholder="Enter text" onChange={this.handleChange}/>

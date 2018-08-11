@@ -7,14 +7,30 @@ class Registration extends React.Component {
 	constructor(props, context){
 		super(props, context)
 
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit 	= this.handleSubmit.bind(this);
+		this.handleChange 	= this.handleChange.bind(this);
+		this.handleFocusOut = this.handleFocusOut.bind(this);
+
 		this.state = {
 				login	 		: '',
 				password 		: '',
 				confirmPassword : '',
-				groupName 		: ''
+				groupName 		: '',
+
+				loginIsUnique	: ''
 		};
+	}
+
+	handleFocusOut(e){
+		e.preventDefault();
+		axios.get('http://localhost:3000/users/' + this.state.login)
+		.then(res=>{
+			res.data.login !== this.state.login ? this.setState({loginIsUnique : 'success'}) : this.setState({loginIsUnique : 'error'}) 
+		})
+		.catch((err) =>{
+			console.log('erreur when getting one users on handleFocusOut : ' +  err);
+		});
+
 	}
 
 	handleSubmit(e){
@@ -44,12 +60,14 @@ class Registration extends React.Component {
 	render(){
 		return(
 			<form className="registration" onSubmit={this.handleSubmit}>
-			 <FormGroup controlId="usernameREgistration"
-	         //validationState={this.getValidationState()}
+			 <FormGroup controlId="usernameREgistration" validationState={this.state.loginIsUnique}
 	         >
 	          <ControlLabel>Nom d'utilisateur</ControlLabel>
-	          <FormControl type="text" value={this.state.login} placeholder="Enter text" onChange={this.handleChange} name="login"/>
+	          <FormControl type="text" value={this.state.login} placeholder="Enter text" onChange={this.handleChange} 
+	          onBlur={this.handleFocusOut} name="login"/>
 	          <FormControl.Feedback />
+	          
+	           { this.state.loginIsUnique === 'error' && this.state.login !=='' ? <HelpBlock hidden>Ce nom existe déja</HelpBlock> : null }
 	        </FormGroup>
 
 	        <FormGroup controlId="firstPassword">
