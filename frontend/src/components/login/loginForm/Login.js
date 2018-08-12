@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import './Login.css';
 import { Alert ,Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Row, Col} from 'react-bootstrap';
+import axios from 'axios';
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -11,7 +12,8 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      value: 'test'
+      login     : '',
+      password  : ''
     };
   }
 
@@ -25,13 +27,28 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
-    alert('retest')
-    this.setState({ value: e.target.value });
+    const target  = e.target;
+    const value   = target.value;
+    const name    = target.name;
+
+    this.setState({
+      [name] : value
+    });
   }
 
-  handleSubmit(e){
-    alert('A name was submitted: ' + this.state.value);
+  handleSubmit(e){    
     e.preventDefault();
+    const {login, password} = this.state;
+    if(this.state.login !== '' && this.state.password != '') {
+        axios.post('http://localhost:3000/users/login', {login, password})
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err =>{
+          console.log('erreur tentative de connexion : ' +  err);
+        });
+    }
+
   }
 
   render() {
@@ -39,13 +56,13 @@ class Login extends React.Component {
       <form className="login" onSubmit={this.handleSubmit}>
         <FormGroup controlId="usernameLogin">
 
-          <ControlLabel>Nom d'utilisateur</ControlLabel>
-          <FormControl type="text" placeholder="Enter text" onChange={this.handleChange}/>
+          <ControlLabel>Nom dutilisateur</ControlLabel>
+          <FormControl type="text" placeholder="Enter username" onChange={this.handleChange} name ="login"/>
         </FormGroup>
 
          <FormGroup controlId="formBasicText">
           <ControlLabel>Mot de passe</ControlLabel>
-          <FormControl  type="password"  placeholder="Enter text"/> 
+          <FormControl  type="password"  placeholder="Enter password" onChange={this.handleChange} name="password"/> 
         </FormGroup>
         <br/>
         <Row>

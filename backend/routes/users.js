@@ -26,15 +26,15 @@ router.get('/:login', (req, res, next) =>{
 });
 
 /* CREATE (POST) user */
-router.post('/create', (req, res, next)=>{
+router.post('/create', AuthenticationServices.checkIfUserExists,(req, res, next)=>{
 	AuthenticationServices.createUser(req,res,next);
 });
 
 /* LOG (POST) an user */
-router.post('/login', (req, res, next)=>{
-	//get password and login
-	//check by calling a service
-	//if check ok, generate token
+router.post('/login',(req, res, next)=>{
+	
+	return res.cookie('name', 'kugjkjhjh').send('cookie set');
+	
 });
 
 /* UPDATE (PUT) users */

@@ -17,34 +17,40 @@ class Registration extends React.Component {
 				confirmPassword : '',
 				groupName 		: '',
 
-				loginIsUnique	: ''
+				loginIsUnique	: '',
+				passwordIsGood	: ''
+
 		};
 	}
 
 	handleFocusOut(e){
 		e.preventDefault();
-		axios.get('http://localhost:3000/users/' + this.state.login)
-		.then(res=>{
-			res.data.login !== this.state.login ? this.setState({loginIsUnique : 'success'}) : this.setState({loginIsUnique : 'error'}) 
-		})
-		.catch((err) =>{
-			console.log('erreur when getting one users on handleFocusOut : ' +  err);
-		});
-
+		if(e.target.name === 'login'){
+			axios.get('http://localhost:3000/users/' + this.state.login)
+				.then(res=>{
+					res.data.login !== this.state.login ? this.setState({loginIsUnique : 'success'}) : this.setState({loginIsUnique : 'error'}); 
+				})
+				.catch((err) =>{
+					console.log('erreur when getting one users on handleFocusOut : ' +  err);
+				});
+			} else if (e.target.name === 'confirmPassword'){
+				this.state.password === this.state.confirmPassword ? this.setState({passwordIsGood : 'success'}): this.setState({passwordIsGood	: 'error'});
+		}
 	}
 
 	handleSubmit(e){
 		e.preventDefault();
-		if(this.state.password !== this.state.confirmPassword){
+		if(this.state.password !== this.state.confirmPassword || this.state.loginIsUnique !== 'success'){
 			return;
 		} 
 		const {login, password, groupName} = this.state;
-    	axios.post('http://localhost:3000/users/create',  {login, password, groupName})
-    	.then(res=>{
-    		console.log(res);
-    		console.log(res.data);
-    	});
-    	
+		if(this.state.loginIsUnique = 'success' && this.state.passwordIsGood == 'success'){
+			axios.post('http://localhost:3000/users/create',  {login, password, groupName})
+		    	.then(res=>{
+		    		console.log(res);
+		    		console.log(res.data);
+		    });
+		}	
  	 }
 
  	 handleChange(event){
@@ -62,23 +68,24 @@ class Registration extends React.Component {
 			<form className="registration" onSubmit={this.handleSubmit}>
 			 <FormGroup controlId="usernameREgistration" validationState={this.state.loginIsUnique}
 	         >
-	          <ControlLabel>Nom d'utilisateur</ControlLabel>
+	          <ControlLabel>Nom d utilisateur</ControlLabel>
 	          <FormControl type="text" value={this.state.login} placeholder="Enter text" onChange={this.handleChange} 
 	          onBlur={this.handleFocusOut} name="login"/>
-	          <FormControl.Feedback />
-	          
-	           { this.state.loginIsUnique === 'error' && this.state.login !=='' ? <HelpBlock hidden>Ce nom existe déja</HelpBlock> : null }
+	          <FormControl.Feedback />	          
+	           { this.state.loginIsUnique === 'error' && this.state.login !=='' ? <HelpBlock>Ce nom existe déja</HelpBlock> : null }
 	        </FormGroup>
 
-	        <FormGroup controlId="firstPassword">
+	        <FormGroup controlId="firstPassword" validationState ={this.state.passwordIsGood}>
 	          <ControlLabel>Mot de passe</ControlLabel>
 	          <FormControl type="password" value={this.state.password} placeholder="Enter text" onChange={this.handleChange} name="password"/>
 	          <FormControl.Feedback />
 	        </FormGroup>
 
-	        <FormGroup controlId="confirmPassword">
+	        <FormGroup controlId="confirmPassword" validationState ={this.state.passwordIsGood}>
 	          <ControlLabel>Confirmer le mot de passe</ControlLabel>
-	          <FormControl type="password" value={this.state.value} placeholder="Enter text" onChange={this.handleChange} name="confirmPassword"/>
+	          <FormControl type="password" value={this.state.value} placeholder="Enter text" onChange={this.handleChange} 
+	          onBlur={this.handleFocusOut} name="confirmPassword"/>
+	          {this.state.passwordIsGood === 'error' && this.state.confirmPassword !=='' ? <HelpBlock> Le mot de passe est différent</HelpBlock> : null}
 	          <FormControl.Feedback />
 	        </FormGroup>
 
@@ -98,7 +105,6 @@ class Registration extends React.Component {
 		</form>
 		);
 	}
-
 }
 
 export default Registration;
