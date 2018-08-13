@@ -7,7 +7,7 @@ import axios from 'axios';
 class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
-
+   
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -39,10 +39,14 @@ class Login extends React.Component {
   handleSubmit(e){    
     e.preventDefault();
     const {login, password} = this.state;
+
+
     if(this.state.login !== '' && this.state.password != '') {
+            
         axios.post('http://localhost:3000/users/login', {login, password})
         .then(res => {
           console.log(res);
+          document.cookie = "token = " + res.data; // this bad solution is because i did not find the way to set cookie with cors request with axios or fetch
         })
         .catch(err =>{
           console.log('erreur tentative de connexion : ' +  err);

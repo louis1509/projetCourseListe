@@ -31,9 +31,11 @@ router.post('/create', AuthenticationServices.checkIfUserExists,(req, res, next)
 });
 
 /* LOG (POST) an user */
-router.post('/login',(req, res, next)=>{
-	
-	return res.cookie('name', 'kugjkjhjh').send('cookie set');
+router.post('/login',AuthenticationServices.comparePassword, (req, res, next)=>{
+	console.log('the user exists (twice)');
+	let token = AuthenticationServices.generateToken();
+	console.log('token : ' + token);
+	return res.send(token);
 	
 });
 

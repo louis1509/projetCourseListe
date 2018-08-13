@@ -73,39 +73,33 @@ const AuthenticationServices = {
 		let password 	= req.body.password;
 	
 		console.log('comparePassword');
-		// User.findOne({login: login}, (err, user)=>{
-		// 	if(err) {
-		// 		console.log('erreur checkIfUserExists : ' +  err);
-		// 		return res.status(200).send(err);
-		// 	}
-		// 	if (!user){
-		// 		console.log('the user does not exist');
-		// 		return res.status(401).send({
-		// 			sucess 	: false,
-		// 			reason	: 'the user does not exist'
-		// 		});
-		// 	} else {
-		// 		console.log('the user exists');
-		// 	// 	bcrypt.compare(password, user.password)
-		// 	// 	.then((result) =>{
-		// 	// 		console.log('success to authentication');
-		// 	// 		return next();
-		// 	// 	}).catch((err)=>{
-		// 	// 		console.log('erreur durant la connexion : ' + err);
-		// 	// 		return res.status(401).send({
-		// 	// 			sucess 	: false,
-		// 	// 			reason	: 'the user does not exist'
-		// 	// 		});
-		// 	// 	});
+		User.findOne({login: login}, (err, user)=>{
+			if(err) {
+				console.log('erreur checkIfUserExists : ' +  err);
+				return res.status(200).send(err);
+			}
+			if (!user){
+				console.log('the user does not exist');
+				return res.status(401).send({
+					sucess 	: false,
+					reason	: 'the user does not exist'
+				});
+			} else {
+				console.log('the user exists');
+				bcrypt.compare(password, user.password)
+				.then((result) =>{
+					console.log('success to authentication');
+					return next();
+				}).catch((err)=>{
+					console.log('erreur durant la connexion : ' + err);
+					return res.status(401).send({
+						sucess 	: false,
+						reason	: 'the user does not exist'
+					});
+				});
 				
-		// 	 }
-		// });
-		if(false){
-			return res.status(400).json({success: false, reason: unknowErrorReason});
-		} else{
-			return next();
-		}
-		
+			 }
+		});		
 	},
 
 	retrieveUser(req,res,next){
