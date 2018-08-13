@@ -88,8 +88,9 @@ const AuthenticationServices = {
 				console.log('the user exists');
 				bcrypt.compare(password, user.password)
 				.then((result) =>{
-					console.log('success to authentication');
-					return next();
+					if(result) return next();
+					else return res.status(401).send({sucess : false, reason : 'mauvais mot de passe'});
+					
 				}).catch((err)=>{
 					console.log('erreur durant la connexion : ' + err);
 					return res.status(401).send({
