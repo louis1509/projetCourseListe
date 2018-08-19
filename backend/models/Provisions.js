@@ -10,4 +10,4 @@ var ProvisionSchema = new mongoose.Schema({
 	buy			: Boolean
 });
 
-module.exports = mongoose.model('Provision', ProvisionSchema);
+module.exports = mongoose.model('Provision', ProvisionSchema, 'Provisions');

@@ -67,6 +67,11 @@ const AuthenticationServices = {
 		
 	},
 
+	checkIfAuthenticate(req,res,next){
+		console.log('checkIfAuthenticate');
+		return true;
+	},
+
 	comparePassword(req, res, next){
 		//call database 
 		let login 		= req.body.login;
