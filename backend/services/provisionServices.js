@@ -10,8 +10,6 @@ const ProvisionServices = {
 		newProvision.price = req.price;
 		newProvision.quantity = req.quantity;
 		newProvision.buy = false;
-		}
-
 	}
 
 };

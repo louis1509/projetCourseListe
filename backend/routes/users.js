@@ -1,8 +1,12 @@
 'use strict';
+//NPM dependencies
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
+
 const User = require('../models/Users');
 const AuthenticationServices = require('../services/authenticationServices');
+
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
@@ -35,6 +39,13 @@ router.post('/login',AuthenticationServices.comparePassword, (req, res, next)=>{
 	console.log('the user exists (twice)');
 	let token = AuthenticationServices.generateToken();
 	console.log('token : ' + token);
+	console.log('login : ' + req.body.login);
+	//save token
+	User.findOneAndUpdate({login : req.body.login},{token : {token : token, expirationDate : moment().add(2,'h').toISOString()}}, (err, user)=>{
+		if(err) console.log ('erreur while saving token : ' + err);
+		console.log('user : ' + user);
+		console.log('token saved : ' + token + ' expirationDate : ' + moment().add(2,'h').format('DD/MM/YYYY HH : mm'));
+	});
 	return res.send(token);
 	
 });

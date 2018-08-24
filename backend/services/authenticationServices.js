@@ -69,7 +69,7 @@ const AuthenticationServices = {
 
 	checkIfAuthenticate(req,res,next){
 		console.log('checkIfAuthenticate');
-		return true;
+		next();
 	},
 
 	comparePassword(req, res, next){
