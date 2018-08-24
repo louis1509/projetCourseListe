@@ -3,3 +3,11 @@
 #courses-container-panel-body{
 	padding: 0;
 }
+
+#provisionsAdding .form-group, #provisionsAdding .form-control{
+	width : 100%;
+}
+
+#tableCourses tbody tr td div input[type="checkbox"]{
+	margin-left: auto;
+}

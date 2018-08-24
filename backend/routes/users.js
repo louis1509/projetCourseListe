@@ -47,7 +47,6 @@ router.post('/login',AuthenticationServices.comparePassword, (req, res, next)=>{
 		console.log('token saved : ' + token + ' expirationDate : ' + moment().add(2,'h').format('DD/MM/YYYY HH : mm'));
 	});
 	return res.send(token);
-	
 });
 
 /* UPDATE (PUT) users */
