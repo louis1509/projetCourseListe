@@ -16,6 +16,7 @@ class Registration extends React.Component {
 				password 		: '',
 				confirmPassword : '',
 				groupName 		: '',
+				newGroupName	: '',
 
 				loginIsUnique	: '',
 				passwordIsGood	: ''
@@ -42,10 +43,11 @@ class Registration extends React.Component {
 		e.preventDefault();
 		if(this.state.password !== this.state.confirmPassword || this.state.loginIsUnique !== 'success'){
 			return;
-		} 
-		const {login, password, groupName} = this.state;
+		}
+
+		const {login, password, groupName,newGroupName} = this.state;
 		if(this.state.loginIsUnique = 'success' && this.state.passwordIsGood == 'success'){
-			axios.post('http://localhost:3000/users/create',  {login, password, groupName})
+			axios.post('http://localhost:3000/users/create',  {login, password, groupName,newGroupName})
 		    	.then(res=>{
 		    		console.log(res);
 		    		console.log(res.data);
@@ -61,6 +63,7 @@ class Registration extends React.Component {
  	 	this.setState({
  	 		[name] : value
  	 	});
+ 	 	console.log(this.state.groupName);
  	 }
 
 	render(){
@@ -93,9 +96,15 @@ class Registration extends React.Component {
 		      <ControlLabel>Select</ControlLabel>
 		      <FormControl componentClass="select" placeholder="select" onChange={this.handleChange} name="groupName">
 		        <option value="select">select</option>
-		        <option value="other">...</option>
+		        <option value="new"> nouveau groupe </option>
 		      </FormControl>
 		    </FormGroup>
+		    {this.state.groupName === 'new' ? 
+		    <FormGroup controlId="newGroupName">
+				<ControlLabel>Nom dutilisateur</ControlLabel>
+         		<FormControl type="text" placeholder="Enter username" onChange={this.handleChange} name ="newGroupName"/>
+        	</FormGroup>
+ 			: null}
 			<br/>
 			<Row>
           		<Col sm={5} smOffset={4}>

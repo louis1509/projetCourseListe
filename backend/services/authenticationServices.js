@@ -22,13 +22,19 @@ const AuthenticationServices = {
 		 	console.log('the salt : ' + salt + ' was generated');
 		 	bcrypt.hash(req.body.password, salt + config.idPassword)
 			 	.then((hash)=>{
+			 	let groupName 		= req.body.groupName;
+			 	console.log('groupName : ' + groupName);
+				let newUser 		= {};
 
-				let newUser = {};
-				newUser.login = req.body.login;
-				newUser.password = hash;
-				newUser.salt = salt;
-				newUser.token = {};
-				newUser.groupName = req.body.groupName;
+				newUser.login 		= req.body.login;
+				newUser.password 	= hash;
+				newUser.salt 		= salt;
+				newUser.token 		= {};
+				if(req.body.newGroupName !== ''){
+					groupName = req.body.newGroupName;
+					console.log('NewgroupName : ' + groupName);
+				}
+				newUser.groupName = groupName;
 
 			 	User.create(newUser, (err, user)=>{
 					if(err) return res.status(200).send(err);

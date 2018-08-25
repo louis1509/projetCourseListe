@@ -21,6 +21,14 @@ router.get('/all',(req, res, next) =>{
 	});
 });
 
+/* Get all group name */
+router.get('/groupName', (req, res, next)=>{
+	User.find({}, 'groupName',(err, groupName)=>{
+		if (err) return res.status(200).send(err);
+		return res.status(200).send(groupName);
+	});
+});
+
 /* GET one user */
 router.get('/:login', (req, res, next) =>{
 	User.findOne({login: req.params.login}, (err, user)=>{
