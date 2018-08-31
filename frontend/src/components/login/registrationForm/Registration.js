@@ -4,17 +4,14 @@ import  {ControlLabel, FormControl, HelpBlock, FormGroup, Button, Row, Col} from
 import axios from 'axios';
 
 class Registration extends React.Component {
+
 	constructor(props, context){
-        var optionsSelect;
+
 		super(props, context)
 
 		this.handleSubmit 	= this.handleSubmit.bind(this);
 		this.handleChange 	= this.handleChange.bind(this);
 		this.handleFocusOut = this.handleFocusOut.bind(this);
-        this.optionsSelect = [];
-        this.getAllGroupName();
-
-
 
 		this.state = {
 				login	 		: '',
@@ -24,18 +21,21 @@ class Registration extends React.Component {
 				newGroupName	: '',
 
 				loginIsUnique	: '',
-				passwordIsGood	: ''
+				passwordIsGood	: '',
+               	optionsSelect 	: [],
 
 		};
 	}
+
+    componentDidMount() {
+		this.getAllGroupName();
+    }
 
 	getAllGroupName(){
 		console.log('getAllGroupName');
 		axios.get('http://localhost:3000/users/groupName')
 			.then(res=>{
-                this.optionsSelect = res.data.map(groupName =>{
-                    groupName.groupName;
-				});
+                this.state.optionsSelect = res.data;
 			})
 			.catch((err)=>{
 				console.log('erreur when getting all groups name : ' + err);
@@ -115,8 +115,13 @@ class Registration extends React.Component {
 		    <FormGroup controlId="selectGroup">
 		      <ControlLabel>Select</ControlLabel>
 		      <FormControl componentClass="select" placeholder="select"   onChange={this.handleChange} name="groupName" >
-				     <option value="select">select</option>
-				  {this.optionsSelect.map((value) => {return <option value={value}>{value}</option>;})}
+				  {this.state.optionsSelect.filter((value, index, array) => index === array.findIndex(value2 => value.groupName === value2.groupName) && value.groupName).map((item)=>{
+				  	return(
+				  		<option value={item.groupName}> {item.groupName}</option>
+					)
+				  })
+				  }
+
 				     <option value="new"> nouveau groupe </option>
 		      </FormControl>
 		    </FormGroup>
