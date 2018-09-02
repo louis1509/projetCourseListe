@@ -4,6 +4,7 @@
 const bcrypt 			= require('bcrypt');
 const Promise 			= require('promise');
 const TokenGenerator 	= require('uuid-token-generator');
+const moment			= require('moment');
 
 //Project dependencies
 const User = require('../models/Users'); 
@@ -119,6 +120,18 @@ const AuthenticationServices = {
 		if(!userToken){
 			req.user = null;
 			return next();
+		} else{
+			User.findOne({"token.token" : userToken}).then((user)=>{
+				if(user !== null && user.token){
+					req.user = user;
+					return next();
+				}
+				req.user = null;
+				return next();
+			}).catch((err)=>{
+				console.log ('erreur en voulant retoruver l utilisateur par le token');
+				return res.status(200).json({success : false, reason : err});
+			});
 		}
 		console.log('retrieveUser');
 		return next();

@@ -14,11 +14,31 @@ class Courses extends React.Component{
 
 	constructor(props, context){
 		super(props, context);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+
 		this.state = {
-			nom : 'louis'
+			provisionName 		: '',
+			provisionQuantity 	: '',
+			provisionPrice		: ''
 		}
 	}
 	
+	handleSubmit(e){
+		e.preventDefault();
+		alert('test');
+	}
+
+	handleChange(e) {
+    	const target  = e.target;
+	    const value   = target.value;
+	    const name    = target.name;
+
+	    this.setState({
+	      [name] : value
+	    });
+  }
+
 	render(){
 		return(
 
@@ -73,25 +93,25 @@ class Courses extends React.Component{
 				          </Panel.Collapse>
 				        </Panel>
 
-					    <Form id="provisionsAdding" inline>
+					    <Form id="provisionsAdding" inline onSubmit={this.handleSubmit}>
 					       <Row>
 				        		<Col sm={5}>
 							  		<FormGroup controlId="formInlineName">
-							    		<FormControl type="text" placeholder="Jane Doe" />
+							    		<FormControl type="text" placeholder="Jane Doe" onChange={this.handleChange} name="provisionName"/>
 							  		</FormGroup>
 							  	</Col>
 							  	<Col sm={3}>
 							  		<FormGroup controlId="formInlineEmail">
-							    		<FormControl type="email" placeholder="jane.doe@example.com" />
+							    		<FormControl type="text" placeholder="jane.doe@example.com" onChange={this.handleChange} name="provisionQuantity"/>
 							 		 </FormGroup>
 							  	</Col>
 							   	<Col sm={3}>
 							 		<FormGroup controlId="formInlineEmail">
-							    		<FormControl type="email" placeholder="jane.doe@example.com" />
+							    		<FormControl type="text" placeholder="jane.doe@example.com" onChange={this.handleChange} name="provisionPrice"/>
 							  		</FormGroup>
 							  	</Col>
 							  	<Col sm={1}>
-							  		<Button type="submit" bsStyle="success">
+							  		<Button type="submit" bsStyle="success" >
 							  			<Glyphicon glyph="plus" />
       								</Button>
 							  	</Col>

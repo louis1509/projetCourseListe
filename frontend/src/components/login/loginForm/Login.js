@@ -2,6 +2,8 @@
 import React, {Component} from 'react';
 import './Login.css';
 import { Alert ,Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Row, Col} from 'react-bootstrap';
+import { withRouter} from 'react-router-dom';
+
 import axios from 'axios';
 
 class Login extends React.Component {
@@ -9,7 +11,7 @@ class Login extends React.Component {
     super(props, context);
    
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+   
 
     this.state = {
       login     : '',
@@ -38,15 +40,21 @@ class Login extends React.Component {
 
   handleSubmit(e){    
     e.preventDefault();
+    console.log('props : ' + this.props);
     const {login, password} = this.state;
-
-
+   
+    
     if(this.state.login !== '' && this.state.password != '') {
             
         axios.post('http://localhost:3000/users/login', {login, password})
         .then(res => {
           console.log(res);
           document.cookie = "token = " + res.data; // this bad solution is because i did not find the way to set cookie with cors request with axios or fetch
+          //redirection
+          console.log('redirection');
+          this.props.history.push('/courses');
+       
+          
         })
         .catch(err =>{
           console.log('erreur tentative de connexion : ' +  err);
@@ -57,7 +65,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form className="login" onSubmit={this.handleSubmit}>
+      <form className="login" onSubmit={this.handleSubmit.bind(this)}>
         <FormGroup controlId="usernameLogin">
 
           <ControlLabel>Nom dutilisateur</ControlLabel>

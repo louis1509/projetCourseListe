@@ -44,7 +44,7 @@ class RoutesApp extends React.Component{
 			<Router>
 				<div>
 	               <Switch>	                 
-	                  <Route exact path='/Login' component={LogonContainer} />
+	                  <Route exact path='/Login' render = {(props)=>(<LogonContainer {...props} />)} />
 	                  <PrivateRoute path ='/Courses' component={Courses} />
 	               </Switch>
 	            </div>
