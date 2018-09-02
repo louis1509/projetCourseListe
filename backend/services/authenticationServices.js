@@ -76,7 +76,11 @@ const AuthenticationServices = {
 
 	checkIfAuthenticate(req,res,next){
 		console.log('checkIfAuthenticate');
-		next();
+		if(!req.user){
+			return res.status(401).send('error in check if authenticate');
+		}else{
+			return next();
+		}
 	},
 
 	comparePassword(req, res, next){
@@ -120,24 +124,24 @@ const AuthenticationServices = {
 		if(!userToken){
 			req.user = null;
 			return next();
-		} else{
-			User.findOne({"token.token" : userToken}).then((user)=>{
-				if(user !== null && user.token){
+		} else{ 
+			User.findOne({"token.token": userToken}).then((user)=>{
+				console.log('retrieveUser');
+				if(user !== null && user.token && moment().isBefore(user.token.expirationDate)){
+					console.log('user found');
+					console.log(user);
+
 					req.user = user;
-					return next();
-				}
-				req.user = null;
-				return next();
+				 	return next();
+				 }
 			}).catch((err)=>{
-				console.log ('erreur en voulant retoruver l utilisateur par le token');
+				console.log ('erreur en voulant retoruver l utilisateur par le token : ' + err);
 				return res.status(200).json({success : false, reason : err});
-			});
+			}); 
+
 		}
-		console.log('retrieveUser');
-		return next();
+		
 	},
-
-
 	generateToken(){
 		console.log('generateToken');
 		let tokengen = new TokenGenerator(256, TokenGenerator.BASE62);

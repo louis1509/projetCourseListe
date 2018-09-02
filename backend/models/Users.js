@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
 	password 	: String,
 	salt 		: String,
 	token 		: {token : String, expirationDate : Date},
-	groupName 	: String
+	groupName 	: String,
+	isAdmin		: Boolean
 });
 
 module.exports = mongoose.model('User', UserSchema, 'Users');

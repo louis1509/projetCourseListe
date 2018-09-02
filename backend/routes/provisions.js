@@ -24,6 +24,7 @@ router.get('/all', AuthenticationServices.checkIfAuthenticate, (req, res, next)=
 /* CREAT (POST) provision */
 
 router.post('/create', AuthenticationServices.checkIfAuthenticate,(req,res,next)=>{
+	console.log('saving provision');
 	let provision = provisionServices.createProvision(req, res, next);
 	Provision.create(provision, (err, provision)=>{
 		if(err) return res.status(200).send(err)

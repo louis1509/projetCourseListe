@@ -1,6 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
+import axios from 'axios';
 import { Row, Col, Panel, Table, Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon, Checkbox} from 'react-bootstrap';
 
 import './Courses.css';
@@ -26,7 +27,16 @@ class Courses extends React.Component{
 	
 	handleSubmit(e){
 		e.preventDefault();
-		alert('test');
+		const {name, quantity, price}= this.state;
+		axios.post('http://localhost:3000/provisions/create',{name, quantity, price})
+		.then((response)=>{
+			console.log('provision saved : ' + response);
+		})
+		.catch((err)=>{
+			console.log('error while saving provision : ' + err);
+		});
+
+
 	}
 
 	handleChange(e) {
@@ -62,10 +72,10 @@ class Courses extends React.Component{
 								<Table id="tableCourses" responsive>
 								  <thead>
 								    <tr>
-								      <th class="col-sm-5 col-xs-5">Nom</th>
-								      <th class="col-sm-3 col-xs-3">qt</th>
-								      <th class="col-sm-3 col-xs-3">prix</th>
-								      <th class="col-sm-1 col-xs-1">Acheté</th>
+								      <th className="col-sm-5 col-xs-5">Nom</th>
+								      <th className="col-sm-3 col-xs-3">qt</th>
+								      <th className="col-sm-3 col-xs-3">prix</th>
+								      <th className="col-sm-1 col-xs-1">Acheté</th>
 								    </tr>
 								  </thead>
 								  <tbody>

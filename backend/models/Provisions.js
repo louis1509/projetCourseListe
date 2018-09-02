@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 var ProvisionSchema = new mongoose.Schema({
-	id 			: Number,
+	name 		: String,
 	group_name 	: String,
 	price 		: Number,
 	quantity 	: Number,

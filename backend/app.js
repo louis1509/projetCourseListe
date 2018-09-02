@@ -10,7 +10,7 @@ const provisionsRouter = require('./routes/provisions');
 const mongoose = require('mongoose');
 const app = express();
 const authenticationServices = require('./services/authenticationServices');
-var cors = require('cors')
+const cors = require('cors')
 
 app.use(cors());
 app.use(logger('dev')); 
@@ -31,13 +31,11 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.status(500).json({
+        message: err.message,
+        error: err
+    });
+ 
 });
 
 mongoose.connect('mongodb://localhost:27017/courses').then(() => { 

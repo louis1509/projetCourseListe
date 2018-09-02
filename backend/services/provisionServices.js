@@ -9,6 +9,7 @@ const ProvisionServices = {
 		let newProvision = {};
 		newProvision.price = req.price;
 		newProvision.quantity = req.quantity;
+		newProvision.groupName = req.user.groupName;
 		newProvision.buy = false;
 	}
 
