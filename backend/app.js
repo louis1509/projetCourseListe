@@ -12,7 +12,10 @@ const app = express();
 const authenticationServices = require('./services/authenticationServices');
 const cors = require('cors')
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3001',
+  credentials: true,
+}));
 app.use(logger('dev')); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

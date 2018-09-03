@@ -79,6 +79,7 @@ const AuthenticationServices = {
 		if(!req.user){
 			return res.status(401).send('error in check if authenticate');
 		}else{
+			console.log('Autenication success');
 			return next();
 		}
 	},
@@ -122,9 +123,11 @@ const AuthenticationServices = {
 	retrieveUser(req,res,next){
 		let userToken =req.cookies.token;
 		if(!userToken){
+			console.log('user token null', userToken);
 			req.user = null;
 			return next();
 		} else{ 
+			console.log('user token NOT null', userToken);
 			User.findOne({"token.token": userToken}).then((user)=>{
 				console.log('retrieveUser');
 				if(user !== null && user.token && moment().isBefore(user.token.expirationDate)){

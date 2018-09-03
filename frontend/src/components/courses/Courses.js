@@ -28,7 +28,18 @@ class Courses extends React.Component{
 	handleSubmit(e){
 		e.preventDefault();
 		const {name, quantity, price}= this.state;
-		axios.post('http://localhost:3000/provisions/create',{name, quantity, price})
+		console.log('handle submit courses.js : ' + {name, quantity, price})
+		// Send a POST request
+		axios({
+  			method: 'post',
+  			url: 'http://localhost:3000/provisions/create',
+ 			data: {
+			    name 		: this.state.provisionName,
+			    quantity 	: this.state.provisionQuantity,
+			   	price	  	: this.state.provisionPrice
+		 },
+			withCredentials:true
+		})
 		.then((response)=>{
 			console.log('provision saved : ' + response);
 		})
@@ -43,7 +54,6 @@ class Courses extends React.Component{
     	const target  = e.target;
 	    const value   = target.value;
 	    const name    = target.name;
-
 	    this.setState({
 	      [name] : value
 	    });
@@ -107,17 +117,17 @@ class Courses extends React.Component{
 					       <Row>
 				        		<Col sm={5}>
 							  		<FormGroup controlId="formInlineName">
-							    		<FormControl type="text" placeholder="Jane Doe" onChange={this.handleChange} name="provisionName"/>
+							    		<FormControl type="text" placeholder="Jane Doe" value={this.state.provisionName} onChange={this.handleChange} name="provisionName"/>
 							  		</FormGroup>
 							  	</Col>
 							  	<Col sm={3}>
 							  		<FormGroup controlId="formInlineEmail">
-							    		<FormControl type="text" placeholder="jane.doe@example.com" onChange={this.handleChange} name="provisionQuantity"/>
+							    		<FormControl type="text" placeholder="jane.doe@example.com" value={this.state.provisionQuantity} onChange={this.handleChange} name="provisionQuantity"/>
 							 		 </FormGroup>
 							  	</Col>
 							   	<Col sm={3}>
 							 		<FormGroup controlId="formInlineEmail">
-							    		<FormControl type="text" placeholder="jane.doe@example.com" onChange={this.handleChange} name="provisionPrice"/>
+							    		<FormControl type="text" placeholder="jane.doe@example.com" value={this.state.provisionPrice} onChange={this.handleChange} name="provisionPrice"/>
 							  		</FormGroup>
 							  	</Col>
 							  	<Col sm={1}>

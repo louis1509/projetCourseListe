@@ -36,7 +36,7 @@ class Registration extends React.Component {
 		axios.get('http://localhost:3000/users/groupName')
 			.then(res=>{
                 this.state.optionsSelect = res.data;
-			})
+			})	
 			.catch((err)=>{
 				console.log('erreur when getting all groups name : ' + err);
 

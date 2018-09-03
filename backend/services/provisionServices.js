@@ -6,11 +6,13 @@ const Provision = require('../models/Provisions');
 const ProvisionServices = {
 	createProvision(req, res, next){
 		console.log('Create provision');
-		let newProvision = {};
-		newProvision.price = req.price;
-		newProvision.quantity = req.quantity;
-		newProvision.groupName = req.user.groupName;
-		newProvision.buy = false;
+		let newProvision 		= {};
+		newProvision.name 		= req.body.name;
+		newProvision.price 		= req.body.price;
+		newProvision.quantity 	= req.body.quantity;
+		newProvision.groupName 	= req.user.groupName;
+		newProvision.buy 		= false;
+		return newProvision;
 	}
 
 };
