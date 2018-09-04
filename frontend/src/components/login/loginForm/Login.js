@@ -14,10 +14,26 @@ class Login extends React.Component {
    
 
     this.state = {
-      login     : '',
-      password  : ''
+      login           : '',
+      password        : '',
+      isAuthenticated : false,
     };
   }
+
+  getCook(cookiename)  {
+    // Get name followed by anything except a semicolon
+    var cookiestring=RegExp(""+cookiename+"[^;]+").exec(document.cookie);
+    // Return everything after the equal sign, or an empty string if the cookie name not found
+    return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+  }
+
+ check(){
+      console.log('checking...');
+      if(this.getCook('token'))this.setState({isAuthenticated :true});
+      else this.setState({isAuthenticated :false});     
+    }
+
+  
 
   getValidationState() {
     console.log('test')
@@ -42,7 +58,7 @@ class Login extends React.Component {
     e.preventDefault();
     console.log('props : ' + this.props);
     const {login, password} = this.state;
-   
+  
     
     if(this.state.login !== '' && this.state.password != '') {
             
@@ -52,6 +68,8 @@ class Login extends React.Component {
           document.cookie = "token = " + res.data; // this bad solution is because i did not find the way to set cookie with cors request with axios or fetch
           //redirection
           console.log('redirection');
+          this.check();
+          this.props.handler(this.state.isAuthenticated);
           this.props.history.push('/courses');
        
           

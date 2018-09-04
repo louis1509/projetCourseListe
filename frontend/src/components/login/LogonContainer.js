@@ -22,8 +22,9 @@ class LogonContainer extends React.Component {
 
      handleSelect(key){
         if(key === 1) this.setState({title : "Connectez vous"});
-        if(key === 2) this.setState({title : "Inscrivez vous"});
+        if(key === 2) this.setState({title : "Inscrivez vous"});         
      }
+
         render(){
             return (
                 <div>        
@@ -38,7 +39,7 @@ class LogonContainer extends React.Component {
                                 id="controlled-tab-example">
                                 <Tab eventKey={1} title={this.login}>
                                     <br/>
-                                    <Login history={this.props.history}/>
+                                    <Login history={this.props.history} handler={this.props.handler} />
                                 </Tab>
                                 <Tab eventKey={2} title={this.registration}>
                                      <br/>

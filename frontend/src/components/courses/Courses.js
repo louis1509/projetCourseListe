@@ -15,8 +15,9 @@ class Courses extends React.Component{
 
 	constructor(props, context){
 		super(props, context);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit 		= this.handleSubmit.bind(this);
+		this.handleChange 		= this.handleChange.bind(this);
+		this.handleChangeNumber = this.handleChangeNumber.bind(this);
 
 		this.state = {
 			provisionName 		: '',
@@ -50,13 +51,26 @@ class Courses extends React.Component{
 
 	}
 
-	handleChange(e) {
+	handleChange(e){
     	const target  = e.target;
 	    const value   = target.value;
 	    const name    = target.name;
-	    this.setState({
+
+      	this.setState({
 	      [name] : value
-	    });
+	    });	    
+  }
+
+  handleChangeNumber(e){
+  	 const re = /^[0-9\b]+$/;
+  	 const target  = e.target;
+	 const value   = target.value;
+	 const name    = target.name;
+     if (value == '' || re.test(value)) {
+         this.setState({
+         	[name]: value
+         });
+      } 
   }
 
 	render(){
@@ -122,7 +136,7 @@ class Courses extends React.Component{
 							  	</Col>
 							  	<Col sm={3}>
 							  		<FormGroup controlId="formInlineEmail">
-							    		<FormControl type="text" placeholder="jane.doe@example.com" value={this.state.provisionQuantity} onChange={this.handleChange} name="provisionQuantity"/>
+							    		<FormControl type="text" placeholder="jane.doe@example.com" value={this.state.provisionQuantity} onChange={this.handleChangeNumber} name="provisionQuantity"/>
 							 		 </FormGroup>
 							  	</Col>
 							   	<Col sm={3}>

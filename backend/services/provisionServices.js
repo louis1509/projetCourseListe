@@ -10,8 +10,9 @@ const ProvisionServices = {
 		newProvision.name 		= req.body.name;
 		newProvision.price 		= req.body.price;
 		newProvision.quantity 	= req.body.quantity;
-		newProvision.groupName 	= req.user.groupName;
+		newProvision.group_name = req.user.groupName;
 		newProvision.buy 		= false;
+		console.log('create provision',newProvision);
 		return newProvision;
 	}
 

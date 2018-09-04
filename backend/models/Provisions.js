@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var ProvisionSchema = new mongoose.Schema({
 	name 		: String,
 	group_name 	: String,
-	price 		: Number,
+	price 		: String,
 	quantity 	: Number,
 	buy			: Boolean
 });
