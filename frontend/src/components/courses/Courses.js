@@ -2,9 +2,11 @@
 
 import React, {Component} from 'react';
 import axios from 'axios';
-import { Row, Col, Panel, Table, Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon, Checkbox} from 'react-bootstrap';
+import { Row, Col, Panel, Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon, Checkbox} from 'react-bootstrap';
 
+import ListeCourses from './ListeCourses';
 import './Courses.css';
+
 
 
 const numbers = [1, 2, 3, 4, 5];
@@ -22,7 +24,8 @@ class Courses extends React.Component{
 		this.state = {
 			provisionName 		: '',
 			provisionQuantity 	: '',
-			provisionPrice		: ''
+			provisionPrice		: '',
+			name 				: ''
 		}
 	}
 	
@@ -81,7 +84,7 @@ class Courses extends React.Component{
 	                 <Col sm={6} smOffset={3}>
 	                 	<Row>
 	                 		<Col sm={6} smOffset={3}>
-								<h1>Bienvenue {this.state.nom}</h1>
+								<h1>Bienvenue {this.state.name}</h1>
 							</Col>
 						</Row>
 						<Panel id="courses-container-panel" defaultExpanded>
@@ -93,35 +96,7 @@ class Courses extends React.Component{
 				          <Panel.Collapse>
 				            <Panel.Body id="courses-container-panel-body">
 				              {/*<ul>{listItems}</ul> */}
-								<Table id="tableCourses" responsive>
-								  <thead>
-								    <tr>
-								      <th className="col-sm-5 col-xs-5">Nom</th>
-								      <th className="col-sm-3 col-xs-3">qt</th>
-								      <th className="col-sm-3 col-xs-3">prix</th>
-								      <th className="col-sm-1 col-xs-1">Acheté</th>
-								    </tr>
-								  </thead>
-								  <tbody>
-								    <tr>
-								      <td>Melons de melun</td>
-								      <td>1</td>
-								      <td>4,25 euros</td>
-								      <td><Checkbox checked></Checkbox></td>
-								    </tr>
-								    <tr>
-								      <td>2</td>
-								      <td>Jacob</td>
-								      <td>Thornton</td>
-								      <td><Checkbox></Checkbox></td>
-								    </tr>
-								    <tr>
-								      <td>3</td>
-								      <td colSpan="2">Larry the Bird</td>
-								      <td><Checkbox></Checkbox></td>
-								    </tr>
-								  </tbody>
-								</Table>
+								<ListeCourses />
 
 				            </Panel.Body>
 				          </Panel.Collapse>

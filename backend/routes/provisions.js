@@ -21,6 +21,13 @@ router.get('/all', AuthenticationServices.checkIfAuthenticate, (req, res, next)=
 	});
 });
 
+/** GET all provisions  by groupName**/
+router.get('/allByGroupName', AuthenticationServices.checkIfAuthenticate, (req, res, next)=>{
+	 Provision.find({group_name : req.user.groupName}, (err, provisions) =>{
+		if(err) return res.status(200).send(err);
+		return res.status(200).send(provisions);
+	 });
+});
 /* CREAT (POST) provision */
 
 router.post('/create', AuthenticationServices.checkIfAuthenticate,(req,res,next)=>{
