@@ -25,7 +25,8 @@ class Courses extends React.Component{
 			provisionName 		: '',
 			provisionQuantity 	: '',
 			provisionPrice		: '',
-			name 				: ''
+			name 				: '',
+			isProvisionAdded	: false
 		}
 	}
 	
@@ -46,6 +47,9 @@ class Courses extends React.Component{
 		})
 		.then((response)=>{
 			console.log('provision saved : ' + response);
+			this.setState({isProvisionAdded : true});
+
+
 		})
 		.catch((err)=>{
 			console.log('error while saving provision : ' + err);
@@ -95,9 +99,7 @@ class Courses extends React.Component{
 				          </Panel.Heading>
 				          <Panel.Collapse>
 				            <Panel.Body id="courses-container-panel-body">
-				              {/*<ul>{listItems}</ul> */}
-								<ListeCourses />
-
+								<ListeCourses update={this.state.isProvisionAdded} />
 				            </Panel.Body>
 				          </Panel.Collapse>
 				        </Panel>

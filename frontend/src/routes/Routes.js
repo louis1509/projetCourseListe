@@ -20,9 +20,8 @@ class RoutesApp extends React.Component{
 	constructor (props, context){
 		super(props, context);
 		 var handler = this.handler.bind(this)
-		this.state = {
-			isAuthenticated : false
-		};
+		 this.check();
+		
 	}
 
 	handler = (isAuthenticated) =>{
@@ -30,6 +29,20 @@ class RoutesApp extends React.Component{
 	      isAuthenticated: isAuthenticated
 	    })
   }
+
+
+   getCook(cookiename)  {
+    // Get name followed by anything except a semicolon
+    var cookiestring=RegExp(""+cookiename+"[^;]+").exec(document.cookie);
+    // Return everything after the equal sign, or an empty string if the cookie name not found
+    return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+  }
+
+ check(){
+      console.log('checking in route page');
+      if(this.getCook('token'))this.state ={isAuthenticated :true}; 
+      else  this.state={isAuthenticated :false};   
+    }
 
 	
 	
