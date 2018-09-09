@@ -6,16 +6,10 @@ import axios from 'axios';
 
 
 class ListeCourses extends React.Component{
-// 	static getDerivedStateFromProps(props, state) {
-//     if (props.test !== state.test) {
-//     	this.forceUpdate();
-//       return  {test : props.update};
-        
-//     }
-// }
-
 	constructor(props, context){
 		super(props, context);
+		this.handleChange = this.handleChange.bind(this);
+
 		this.state = {
 			provisions : [],
 			update 	   : false
@@ -33,10 +27,6 @@ class ListeCourses extends React.Component{
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		console.log('componentDidUpdate');
-		console.log('prevProps.update',prevProps.update);
-		console.log('this.props.update',this.props.update);
-		//this.setState{}
     	if(prevProps.update !== this.props.update){
     		this.getProvisions();
     	}
@@ -48,6 +38,19 @@ class ListeCourses extends React.Component{
 		this.getProvisions();
 
 	}
+	 handleChange(event) {
+     	console.log('handle change buy provisions');
+     	console.log('event.target.name', event.target.name);
+	    console.log('event.target.value', event.target.value);
+	    console.log('event.target.checked', event.target.checked);
+     	axios.put('http://localhost:3000/provisions/update',{id : event.target.name, buy : event.target.checked},{withCredentials: true})
+     	.then((response)=>{
+     			console.log('has been updated')
+     	})
+     	.catch((error)=>{
+
+     		});
+  	}
 
 	render(){
 		return(
@@ -62,12 +65,12 @@ class ListeCourses extends React.Component{
 			    </tr>
 			  </thead>
 			  <tbody>
-			    {this.state.provisions.map((row)=>{
+			    {this.state.provisions.map((row,index)=>{
 			    	return 	<tr>
 			    				<td>{row.name}</td>
 			    				<td>{row.quantity}</td>
 			    				<td>{row.price}</td>
-			    				<td><Checkbox></Checkbox></td>
+			    				<td><Checkbox onChange={this.handleChange} name={row._id}></Checkbox></td>
 			    			</tr>
 			    		})
 				}

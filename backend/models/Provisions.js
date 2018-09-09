@@ -7,7 +7,8 @@ var ProvisionSchema = new mongoose.Schema({
 	group_name 	: String,
 	price 		: String,
 	quantity 	: Number,
-	buy			: Boolean
+	buy			: Boolean,
+	updated		: Date
 });
 
 module.exports = mongoose.model('Provision', ProvisionSchema, 'Provisions');
