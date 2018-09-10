@@ -44,10 +44,7 @@ router.post('/create', AuthenticationServices.checkIfUserExists,(req, res, next)
 
 /* LOG (POST) an user */
 router.post('/login',AuthenticationServices.comparePassword, (req, res, next)=>{
-	console.log('the user exists (twice)');
 	let token = AuthenticationServices.generateToken();
-	console.log('token : ' + token);
-	console.log('login : ' + req.body.login);
 	//save token
 	User.findOneAndUpdate({login : req.body.login},{token : {token : token, expirationDate : moment().add(2,'h').toISOString()}}, (err, user)=>{
 		if(err) console.log ('erreur while saving token : ' + err);

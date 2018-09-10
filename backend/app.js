@@ -9,11 +9,13 @@ const usersRouter = require('./routes/users');
 const provisionsRouter = require('./routes/provisions');
 const mongoose = require('mongoose');
 const app = express();
-const authenticationServices = require('./services/authenticationServices');
-const cors = require('cors')
+const authenticationServices = require('./services/authenticationServices'); 
+const provisionServices = require('./services/provisionServices');
+const cors = require('cors');
+const schedule = require('node-schedule');
 
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: 'http://192.168.1.13:3001',
   credentials: true,
 }));
 app.use(logger('dev')); 
@@ -41,6 +43,7 @@ app.use(function(err, req, res, next) {
  
 });
 
+//connexion to the bdd
 mongoose.connect('mongodb://localhost:27017/courses').then(() => { 
 	console.log("Database connection OK");
    },
@@ -50,4 +53,11 @@ mongoose.connect('mongodb://localhost:27017/courses').then(() => {
   	process.exit(1);
   }
 );
+
+//Scheduler to clean the database of buyed product once a week 
+schedule.scheduleJob('*/30 * * * * *',()=>{
+    console.log('cleaning database...');
+    provisionServices.deleteProvisions();
+})
+
 module.exports = app;

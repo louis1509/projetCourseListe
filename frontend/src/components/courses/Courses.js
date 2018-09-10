@@ -37,7 +37,7 @@ class Courses extends React.Component{
 		// Send a POST request
 		axios({
   			method: 'post',
-  			url: 'http://localhost:3000/provisions/create',
+  			url: 'http://192.168.1.13:3000/provisions/create',
  			data: {
 			    name 		: this.state.provisionName,
 			    quantity 	: this.state.provisionQuantity,
@@ -107,18 +107,18 @@ class Courses extends React.Component{
 					    <Form id="provisionsAdding" inline onSubmit={this.handleSubmit}>
 					       <Row>
 				        		<Col sm={5}>
-							  		<FormGroup controlId="formInlineName">
-							    		<FormControl type="text" placeholder="Jane Doe" value={this.state.provisionName} onChange={this.handleChange} name="provisionName"/>
+							  		<FormGroup controlId="nameOfProduct">
+							    		<FormControl type="text" placeholder="nom du produit" value={this.state.provisionName} onChange={this.handleChange} name="provisionName"/>
 							  		</FormGroup>
 							  	</Col>
 							  	<Col sm={3}>
-							  		<FormGroup controlId="formInlineEmail">
-							    		<FormControl type="text" placeholder="jane.doe@example.com" value={this.state.provisionQuantity} onChange={this.handleChangeNumber} name="provisionQuantity"/>
+							  		<FormGroup controlId="quantity">
+							    		<FormControl type="text" placeholder="quantité (nombre)" value={this.state.provisionQuantity} onChange={this.handleChangeNumber} name="provisionQuantity"/>
 							 		 </FormGroup>
 							  	</Col>
 							   	<Col sm={3}>
-							 		<FormGroup controlId="formInlineEmail">
-							    		<FormControl type="text" placeholder="jane.doe@example.com" value={this.state.provisionPrice} onChange={this.handleChange} name="provisionPrice"/>
+							 		<FormGroup controlId="comment">
+							    		<FormControl type="text" placeholder="commentaire" value={this.state.provisionPrice} onChange={this.handleChange} name="provisionPrice"/>
 							  		</FormGroup>
 							  	</Col>
 							  	<Col sm={1}>

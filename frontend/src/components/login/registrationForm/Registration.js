@@ -33,7 +33,7 @@ class Registration extends React.Component {
 
 	getAllGroupName(){
 		console.log('getAllGroupName');
-		axios.get('http://localhost:3000/users/groupName')
+		axios.get('http://192.168.1.13:3000/users/groupName')
 			.then(res=>{
                 this.state.optionsSelect = res.data;
 			})	
@@ -46,7 +46,7 @@ class Registration extends React.Component {
 	handleFocusOut(e){
 		e.preventDefault();
 		if(e.target.name === 'login'){
-			axios.get('http://localhost:3000/users/' + this.state.login)
+			axios.get('http://192.168.1.13:3000/users/' + this.state.login)
 				.then(res=>{
 					res.data.login !== this.state.login ? this.setState({loginIsUnique : 'success'}) : this.setState({loginIsUnique : 'error'}); 
 				})
@@ -66,7 +66,7 @@ class Registration extends React.Component {
 
 		const {login, password, groupName,newGroupName} = this.state;
 		if(this.state.loginIsUnique = 'success' && this.state.passwordIsGood == 'success'){
-			axios.post('http://localhost:3000/users/create',  {login, password, groupName,newGroupName})
+			axios.post('http://192.168.1.13:3000/users/create',  {login, password, groupName,newGroupName})
 		    	.then(res=>{
 		    		console.log(res);
 		    		console.log(res.data);

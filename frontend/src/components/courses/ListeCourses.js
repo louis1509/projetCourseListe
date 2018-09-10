@@ -16,13 +16,12 @@ class ListeCourses extends React.Component{
 		};
 	}
 	getProvisions(){
-		axios.get('http://localhost:3000/provisions/allByGroupName',{withCredentials: true})
+		axios.get('http://192.168.1.13:3000/provisions/allByGroupName',{withCredentials: true})
 			.then((response)=>{
 				this.setState({provisions : response.data});
 			})
 			.catch((error)=>{
 				console.log('erreur while getting all provisions by group name : ' + error);
-				alert('erreur ' + error);
 			});
 	}
 
@@ -40,10 +39,7 @@ class ListeCourses extends React.Component{
 	}
 	 handleChange(event) {
      	console.log('handle change buy provisions');
-     	console.log('event.target.name', event.target.name);
-	    console.log('event.target.value', event.target.value);
-	    console.log('event.target.checked', event.target.checked);
-     	axios.put('http://localhost:3000/provisions/update',{id : event.target.name, buy : event.target.checked},{withCredentials: true})
+     	axios.put('http://192.168.1.13:3000/provisions/update',{id : event.target.name, buy : event.target.checked},{withCredentials: true})
      	.then((response)=>{
      			console.log('has been updated')
      	})
@@ -59,8 +55,8 @@ class ListeCourses extends React.Component{
 			  <thead>
 			    <tr>
 			      <th className="col-sm-5 col-xs-5">Nom</th>
-			      <th className="col-sm-3 col-xs-3">qt</th>
-			      <th className="col-sm-3 col-xs-3">prix</th>
+			      <th className="col-sm-3 col-xs-3">Quantité</th>
+			      <th className="col-sm-3 col-xs-3">Commentaire</th>
 			      <th className="col-sm-1 col-xs-1">Acheté</th>
 			    </tr>
 			  </thead>

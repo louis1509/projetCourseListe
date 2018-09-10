@@ -14,6 +14,12 @@ const ProvisionServices = {
 		newProvision.buy 		= false;
 		console.log('create provision',newProvision);
 		return newProvision;
+	},
+
+	deleteProvisions(){
+		Provision.remove({buy : true},(err)=>{
+			if(err) console.log('error while cleaning database',err);
+		});
 	}
 
 };

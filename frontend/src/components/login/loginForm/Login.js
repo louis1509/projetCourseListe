@@ -62,7 +62,7 @@ class Login extends React.Component {
     
     if(this.state.login !== '' && this.state.password != '') {
             
-        axios.post('http://localhost:3000/users/login', {login, password})
+        axios.post('http://192.168.1.13:3000/users/login', {login, password})
         .then(res => {
           console.log(res);
           document.cookie = "token = " + res.data; // this bad solution is because i did not find the way to set cookie with cors request with axios or fetch
