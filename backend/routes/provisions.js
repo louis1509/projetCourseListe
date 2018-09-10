@@ -43,11 +43,12 @@ router.post('/create', AuthenticationServices.checkIfAuthenticate,(req,res,next)
 /** UPDATE (PUT) provision */
 router.put('/update', AuthenticationServices.checkIfAuthenticate, (req, res, next)=>{
 	console.log('updtating provision');
-	Provision.findById(req.id,(err, provision)=>{
+	Provision.findById(req.body.id,(err, provision)=>{
 		if (err) return res.status(200).send(err);
 		else{
+			console.log('id',req.body.id);
 			if(provision.group_name === req.user.groupName){
-				Provision.findByIdAndUpdate(req.id,{buy : req.buy}, (err, provision)=>{
+				Provision.findByIdAndUpdate(req.body.id,{buy : req.body.buy}, (err, provision)=>{
 					if (err) return res.status(200).send(err)
 					res.status(200).send(provision);
 				});
