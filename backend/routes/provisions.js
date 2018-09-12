@@ -3,10 +3,12 @@
 //NPM dependencies
 const express = require('express')
 const router = express.Router();
+const moment = require('moment');
 
 const Provision = require('../models/Provisions')
 const AuthenticationServices = require('../services/authenticationServices');
 const provisionServices = require('../services/provisionServices');
+
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
@@ -48,7 +50,7 @@ router.put('/update', AuthenticationServices.checkIfAuthenticate, (req, res, nex
 		else{
 			console.log('id',req.body.id);
 			if(provision.group_name === req.user.groupName){
-				Provision.findByIdAndUpdate(req.body.id,{buy : req.body.buy}, (err, provision)=>{
+				Provision.findByIdAndUpdate(req.body.id,{buy : req.body.buy, updated : moment()}, (err, provision)=>{
 					if (err) return res.status(200).send(err)
 					res.status(200).send(provision);
 				});
