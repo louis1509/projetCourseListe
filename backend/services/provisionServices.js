@@ -1,7 +1,8 @@
 'use strict';
 
 //Project dependencies
-const Provision = require('../models/Provisions'); 
+const Provision = require('../models/Provisions');
+const moment = require('moment');
 
 const ProvisionServices = {
 	createProvision(req, res, next){
@@ -12,12 +13,14 @@ const ProvisionServices = {
 		newProvision.quantity 	= req.body.quantity;
 		newProvision.group_name = req.user.groupName;
 		newProvision.buy 		= false;
+		newProvision.updated	= moment();
 		console.log('create provision',newProvision);
 		return newProvision;
 	},
 
 	deleteProvisions(){
-		Provision.remove({buy : true},(err)=>{
+		let limitDate = moment().subtract(3,'days');
+		Provision.remove({buy : true, updated: {$lte : limitDate}},(err)=>{
 			if(err) console.log('error while cleaning database',err);
 		});
 	}
