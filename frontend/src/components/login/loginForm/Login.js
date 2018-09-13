@@ -17,6 +17,7 @@ class Login extends React.Component {
       login           : '',
       password        : '',
       isAuthenticated : false,
+      authentFailed   : false
     };
   }
 
@@ -29,8 +30,8 @@ class Login extends React.Component {
 
  check(){
       console.log('checking...');
-      if(this.getCook('token'))this.setState({isAuthenticated :true});
-      else this.setState({isAuthenticated :false});     
+      if(this.getCook('token'))this.setState({isAuthenticated :true, authentFailed : false});
+      else this.setState({isAuthenticated :false, authentFailed :true});     
     }
 
   
@@ -76,6 +77,7 @@ class Login extends React.Component {
         })
         .catch(err =>{
           console.log('erreur tentative de connexion : ' +  err);
+          this.setState({authentFailed : true});
         });
     }
 
@@ -95,6 +97,11 @@ class Login extends React.Component {
           <FormControl  type="password"  placeholder="Enter password" onChange={this.handleChange} name="password"/> 
         </FormGroup>
         <br/>
+        {this.state.authentFailed ? 
+        <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+          <strong>Erreur d'authentification !</strong> Veuillez vérifer vos identifiants
+        </Alert>
+        : null}
         <Row>
           <Col sm={5} xs={12} smOffset={4} >
             <Button  bsStyle="success" type="submit">Connexion</Button>
